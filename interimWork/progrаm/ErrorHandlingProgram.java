@@ -1,15 +1,11 @@
 package interimWork.progrаm;
-
 import java.io.File;
-import java.nio.file.Path;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import interimWork.progrаm.exceptionCustom.DayException;
-import interimWork.progrаm.exceptionCustom.MonthException;
-import interimWork.progrаm.exceptionCustom.NameLenghtExcoption;
-import interimWork.progrаm.exceptionCustom.TelNumException;
-import interimWork.progrаm.exceptionCustom.YearException;
+import interimWork.progrаm.exceptionCustom.*;
 /**
  * ErrorHandlingProgram
  */
@@ -23,7 +19,9 @@ public class ErrorHandlingProgram {
         String gender = getGender(scan);
         int tel = getTel(scan);
         scan.close();
-        System.out.println(writeToAFile());
+        boolean g =  writeToAFile(surname, name, patronymic, birthDate, gender, tel);
+        System.out.println(g);
+        //System.out.println(writeToAFile());
         // System.out.println(surname);
         // System.out.println(name);
         // System.out.println(patronymic);
@@ -32,14 +30,53 @@ public class ErrorHandlingProgram {
         // System.out.println(tel);
     }
     public static void Start(){
-         new ErrorHandlingProgram();
+        ErrorHandlingProgram b =new ErrorHandlingProgram();
     }
     private boolean writeToAFile(String surname, String name, String patronymic,LocalDate birhtDate, String gen, int tel){
-        //File f = new File("C:\\Geek_Brains_Вероника2023\\ДЗ\\problemInProgram\\interimWork\\interimWork\\progrаm\\"+ surname + ".txt");
-        if () {
-            
+        try {
+           File f= new File("C:\\Users\\veron\\training\\javaskript\\hwException\\hwOOII\\interim-work\\interimWork\\progrаm\\fileKeeping\\"+ surname + ".txt");
+           System.out.println("--");
+            if (f.exists()&& !f.isDirectory()) {
+                System.out.println("--1");
+                //f.createNewFile();
+                //f.createNewFile();
+            }
+            System.out.println("--2");
+            //FileWriter fw = new FileWriter(surname+".txt");
+            //System.out.println("--");
+            String str = surname+" " + name+" " +patronymic+" " +birhtDate.toString()+" " +tel+" "+gen+"\n";
+            System.out.println("--");
+            fileRedak(f, str);
+            System.out.println("--");
+            //BufferedWriter bw = new BufferedWriter(fw);
+            //fw.close();
+            System.out.println("--");
+            //bw.write(str);
+            //bw.close();
+            System.out.println("--");
+            return true;  
+        } catch (Exception e) {  
+            return false;
         }
     }
+    private void fileRedak(File f, String addstr){
+            FileWriter fr = null;
+            try {
+                fr = new FileWriter(f,true);
+                fr.write(addstr);
+               
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally{
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        
+    }
+    
     private int getTel(Scanner scan){
         try {
             String str = getAllStringg("Введите свой номер телефона без пробелов, тире и других символов, только цифры\n(если вы из России начните свой телефон с цифры 8)", scan);
