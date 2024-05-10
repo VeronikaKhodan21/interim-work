@@ -34,7 +34,7 @@ public class ErrorHandlingProgram {
     }
     private boolean writeToAFile(String surname, String name, String patronymic,LocalDate birhtDate, String gen, int tel){
         try {
-           File f= new File("C:\\Users\\veron\\training\\javaskript\\hwException\\hwOOII\\interim-work\\interimWork\\progrаm\\fileKeeping\\"+ surname + ".txt");
+           File f= new File("progrаm\\"+ surname + ".txt");
            System.out.println("--");
             if (f.exists()&& !f.isDirectory()) {
                 System.out.println("--1");
